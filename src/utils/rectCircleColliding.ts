@@ -1,17 +1,32 @@
+import { Circle, Player } from "../types";
 
-import { Circle } from '../types/Circle'
+export function rectCircleColliding(circle: Circle, player: Player): boolean {
+  const PLAYER_WIDTH = player.getWidth() / 2;
+  const CIRLCE_RADIUS = circle.getRadius();
+  const distX = Math.abs(
+    circle.getX() +
+      circle.getDX() -
+      player.getX() -
+      PLAYER_WIDTH -
+      player.getDY()
+  );
+  const distY = Math.abs(
+    circle.getY() +
+      circle.getDY() -
+      player.getY() -
+      PLAYER_WIDTH -
+      player.getDY()
+  );
 
-export function RectCircleColliding(circle: Circle ,rect: Rect){
-  const distX = Math.abs((circle.x + circle.velocity.x) - rect.x - rect.width/2 - rect.dy);
-  const distY = Math.abs((circle.y + circle.velocity.y) - rect.y - rect.height/2 - rect.dy);
+  if ((distX || distY) > PLAYER_WIDTH + CIRLCE_RADIUS) {
+    return false;
+  }
 
-  if (distX > (rect.width/2 + circle.radius)) { return false; }
-  if (distY > (rect.height/2 + circle.radius)) { return false; }
+  if ((distX || distY) <= PLAYER_WIDTH) {
+    return true;
+  }
 
-  if (distX <= (rect.width/2)) { return true; } 
-  if (distY <= (rect.height/2)) { return true; }
-
-  const dx=distX-rect.width/2;
-  const dy=distY-rect.height/2;
-  return (dx*dx+dy*dy<=(circle.radius*circle.radius));
+  const dx = distX - PLAYER_WIDTH;
+  const dy = distY - PLAYER_WIDTH;
+  return dx * dx + dy * dy <= CIRLCE_RADIUS * CIRLCE_RADIUS;
 }
