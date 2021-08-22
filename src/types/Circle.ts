@@ -6,9 +6,8 @@ import {
   CENTER_X,
   CENTER_Y,
 } from "./constants";
-import { Model } from "./Model";
-import { RectCircleColliding } from "../utils/rectCircleColliding";
-import { Player } from "./Player";
+import { rectCircleColliding, randomSpeed } from "../utils";
+import { Model, Player } from ".";
 
 interface ICircle {
   ctx: ICTX;
@@ -45,6 +44,10 @@ export class Circle extends Model<ICircle> {
     this.props.ctx.closePath();
   }
 
+  private getSpeed(): number[] {
+    return this.props.setting.speed;
+  }
+
   private playerHasScored(playerOne: Player, playerTwo: Player): boolean {
     if (this.getX() - this.getRadius() * 3 > WINDOW_WIDTH) {
       //If ball passes the right wall and goes past it
@@ -71,10 +74,10 @@ export class Circle extends Model<ICircle> {
       this.props.dy = -this.props.dy;
     }
 
-    const detectionOne = RectCircleColliding(this, playerOne);
-    const detectionTwo = RectCircleColliding(this, playerTwo);
+    const detectionOne = rectCircleColliding(this, playerOne);
+    const detectionTwo = rectCircleColliding(this, playerTwo);
 
-    if (detectionOne == true || detectionTwo == true) {
+    if (detectionOne || detectionTwo) {
       if (playerOne.getDX() > 0) {
         this.props.dx -= 3;
       }
@@ -90,10 +93,10 @@ export class Circle extends Model<ICircle> {
       this.props.dx = -this.props.dx;
     }
 
-    if (this.props.dx > Math.abs(randomSpeed(this.setting.speed))) {
+    if (this.props.dx > Math.abs(randomSpeed(this.getSpeed()))) {
       this.props.dx = this.props.dx * 0.75;
     }
-    if (this.props.dx < Math.abs(randomSpeed(this.setting.speed)) * -1) {
+    if (this.props.dx < Math.abs(randomSpeed(this.getSpeed())) * -1) {
       this.props.dx = this.props.dx * 0.75;
     }
 
@@ -105,7 +108,7 @@ export class Circle extends Model<ICircle> {
   public center(): void {
     this.x = CENTER_X;
     this.y = CENTER_Y;
-    this.props.dx = randomSpeed(this.setting.speed);
-    this.props.dy = randomSpeed(this.setting.speed);
+    this.props.dx = randomSpeed(this.getSpeed());
+    this.props.dy = randomSpeed(this.getSpeed());
   }
 }
