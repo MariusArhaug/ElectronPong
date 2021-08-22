@@ -1,124 +1,111 @@
-import { ICTX, IDificulty, WINDOW_HEIGHT, WINDOW_WIDTH, CENTER_X, CENTER_Y } from './constants'
-import { Model } from './Model'
-import { RectCircleColliding } from '../utils/rectCircleColliding'
+import {
+  ICTX,
+  IDificulty,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH,
+  CENTER_X,
+  CENTER_Y,
+} from "./constants";
+import { Model } from "./Model";
+import { RectCircleColliding } from "../utils/rectCircleColliding";
+import { Player } from "./Player";
 
 interface ICircle {
-  ctx: ICTX
-  x : number;
-  y: number;
-  velocity: IVelocity;
-  radius: number;
-  color: string;
-}
-
-interface IVelocity {
+  ctx: ICTX;
   dx: number;
   dy: number;
+  radius: number;
+  setting: IDificulty;
 }
 
-
-
 export class Circle extends Model<ICircle> {
-  readonly setting : IDificulty 
-  public getX(): number {
-    return this.props.x;
-  }
-
-  public getY(): number {
-    return this.props.y;
-  }
-
-  public getVelocity(): IVelocity {
-    return this.props.velocity
-  }
-
   public getDX(): number {
-    return this.getVelocity().dx;
+    return this.props.dx;
   }
 
   public getDY(): number {
-    return this.getVelocity().dy;
+    return this.props.dy;
   }
 
   public getRadius(): number {
     return this.props.radius;
   }
 
-  public getColor(): string {
-    return this.props.color;
+  public draw(): void {
+    this.props.ctx.beginPath();
+    this.props.ctx.arc(
+      this.getX(),
+      this.getY(),
+      this.getRadius(),
+      0,
+      2 * Math.PI
+    );
+    this.props.ctx.strokeStyle = this.getColor();
+    this.props.ctx.stroke();
+    this.props.ctx.closePath();
   }
-
-
-	public draw(): void {
-		this.props.ctx.beginPath(); 
-		this.props.ctx.arc(this.getX(), this.getY(), this.getRadius(), 0, 2 * Math.PI);
-		this.props.ctx.strokeStyle = this.getColor();
-		this.props.ctx.stroke();
-		this.props.ctx.closePath();
-	}
 
   private playerHasScored(playerOne: Player, playerTwo: Player): boolean {
-    if ((this.getX() - this.getRadius() * 3 ) > WINDOW_WIDTH) {
+    if (this.getX() - this.getRadius() * 3 > WINDOW_WIDTH) {
       //If ball passes the right wall and goes past it
-      playerOne.increasePoints()
-      return true
+      playerOne.increasePoints();
+      return true;
     }
-    if ((this.getX() + this.getRadius()*3) < 0) {
+    if (this.getX() + this.getRadius() * 3 < 0) {
       //If ball passes with left wall and goes past it
-      playerTwo.increasePoints()
-      return true
+      playerTwo.increasePoints();
+      return true;
     }
-    return false
+    return false;
   }
 
-
-	public update(playerOne: Player, playerTwo: Player): void {
-		if (this.playerHasScored) {
-      this.center()
+  public update(playerOne: Player, playerTwo: Player): void {
+    if (this.playerHasScored) {
+      this.center();
     }
 
-		if (this.y+this.velocity.y > WindowHeight - this.radius || this.y+this.velocity.y < this.radius) {
-			this.velocity.y = -this.velocity.y;
-		}
+    if (
+      this.y + this.getDY() > WINDOW_HEIGHT - this.getRadius() ||
+      this.y + this.getDY() < this.getRadius()
+    ) {
+      this.props.dy = -this.props.dy;
+    }
 
+    const detectionOne = RectCircleColliding(this, playerOne);
+    const detectionTwo = RectCircleColliding(this, playerTwo);
 
-		const detectionOne = RectCircleColliding(this, playerOne);
-		const detectionTwo = RectCircleColliding(this, playerTwo);
+    if (detectionOne == true || detectionTwo == true) {
+      if (playerOne.getDX() > 0) {
+        this.props.dx -= 3;
+      }
 
-		if (detectionOne == true || detectionTwo == true) {
+      if (playerTwo.getDX() < 0) {
+        this.props.dx += 3;
+      }
 
-			if(playerOne.dx > 0) {
-				this.velocity.x -= 3;
-			}
+      if (playerOne.getDY() < 0 || playerTwo.getDY() < 0) {
+        this.props.dy = -this.props.dy;
+      }
 
-			if(playerTwo.dx < 0) {
-				this.velocity.x += 3;
-			}
+      this.props.dx = -this.props.dx;
+    }
 
-			if(playerOne.dy < 0 || playerTwo.dy < 0) {
-				this.velocity.y = this.velocity.y;
-			}
+    if (this.props.dx > Math.abs(randomSpeed(this.setting.speed))) {
+      this.props.dx = this.props.dx * 0.75;
+    }
+    if (this.props.dx < Math.abs(randomSpeed(this.setting.speed)) * -1) {
+      this.props.dx = this.props.dx * 0.75;
+    }
 
-			this.velocity.x = -this.velocity.x;
-		}
+    this.props.dx += this.getDX();
+    this.props.dy += this.getDY();
+    this.draw();
+  }
 
-		if (this.velocity.x > Math.abs(randomSpeed(this.setting.speed))) {
-				this.velocity.x = this.velocity.x*0.75;
-			}
-		if (this.velocity.x < Math.abs(randomSpeed(this.setting.speed))*-1) {
-				this.velocity.x = this.velocity.x*0.75;
-			}
-
-
-		this.props.x += this.getDX();
-		this.props.y += this.getDY();
-		this.draw();
-	}
-
-	public center(): void {
-		this.props.x = CENTER_X;
-		this.props.y = CENTER_Y;
-		this.props.velocity.dx = randomSpeed(this.setting.speed);
-		this.props.velocity.dy = randomSpeed(this.setting.speed);
-	}
+  public center(): void {
+    this.x = CENTER_X;
+    this.y = CENTER_Y;
+    this.props.dx = randomSpeed(this.setting.speed);
+    this.props.dy = randomSpeed(this.setting.speed);
+  }
 }
