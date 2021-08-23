@@ -108,11 +108,11 @@ element {
   font-weight: bold;
 }
 
-.mouseOver {
+.mouseOver div p {
   cursor: pointer;
 }
 
-.mouseOver:hover {
+.mouseOver div p:hover {
   text-decoration: underline;
 }
 

@@ -1,8 +1,8 @@
 {
   "name": "electronpong",
-  "productName": "electronpong",
+  "productName": "Electron Pong",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Electron application for playing Pong",
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && electron-forge start",
