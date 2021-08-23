@@ -125,45 +125,36 @@ let lastKeyCode: string;
 function movePlayer(playerOne: Player, playerTwo: Player, e: KeyboardEvent) {
   e.preventDefault();
   switch (e.key) {
-    //player one has WS
     case "w":
       playerOne.move(-1);
-      //up W key pressed
       if (lastKeyCode == e.key) {
         playerOne.speedUp(-1);
       }
       break;
     case "s":
       playerOne.move(1);
-      //down S key pressed
       if (lastKeyCode == e.key) {
         playerOne.speedUp(1);
       }
       break;
     case "d":
       playerOne.pushForward(1);
-      //D key, move to the right
       break;
-
-    //player two has up and down arrow
 
     case "ArrowUp":
       playerTwo.move(-1);
-      // up arrow key pressed
       if (lastKeyCode == e.key) {
         playerTwo.speedUp(-1);
       }
       break;
     case "ArrowDown":
       playerTwo.move(1);
-      // down arrow key pressed
       if (lastKeyCode == e.key) {
         playerTwo.speedUp(1);
       }
       break;
     case "ArrowLeft":
       playerTwo.pushForward(-1);
-      //left arrow key, move to the left
       break;
   }
   lastKeyCode = e.key;
