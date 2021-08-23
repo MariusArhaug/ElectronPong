@@ -1,54 +1,53 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>Pong</title>
-  <link rel="stylesheet" href="index.css">
-  <script defer src="../dist/renderer/main.js"></script>
-</head>
-
-<body>
-  <header>
-    <h1 style="visibility: hidden"><span id="pOne-Counter">0 </span>|<span id="pTwo-Counter"> 0</span></h1>
-  </header>
-  <div class="menu-container">
-    <div class="menu" class="mouseOver">
-      <h1 style="color: white">Pong</h1>
-      <p style="color: grey; text-decoration: underline;">Difficulty:</p>
-      <p style="color: #33cc33" onclick="startGame('easy')">Easy</p>
-      <p style="color: yellow"  onclick="startGame('normal')">Normal</p>
-      <p style="color: orange"  onclick="startGame('hard')">Hard</p>
-      <p style="color: red"     onclick="startGame('extreme')">Extreme</p>
-      <br>
-      <p style="color: white;"  onclick="showInstructions()">How to play?</p>
-    </div>
-
-    <div class="winner-container">
-      <h2 class="winner-message"></h2>
-      <p style="color: white" onclick="reset()">Main Menu</p>
-    </div>
-
-    <div class="instructions-container">
-      <div class="instructions instructionsOne">
-        <h3 style="text-decoration: underline;">Moves</h3>
-        <p>You can move your player with the keyboard</p>
-        <p>Left player can move their player with W and S keys to move up and down.</p>
-        <p>Right player can move their player with arrow keys to move up and down.</p>
-        <img src="../assets/movement.jpeg" width="150" alt="movement-image" />
+<html lang="html">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <link rel="stylesheet" href="index.css">
+    <script>var exports = {}; </script>
+    <script defer src="../dist/renderer/main.js"></script>
+    <!-- <script defer >require('../dist/renderer/main.js') </script> -->
+  </head>
+  <body>
+    <header>
+      <h1 style="visibility: hidden"><span id="pOne-Counter">0 </span>|<span id="pTwo-Counter"> 0</span></h1>
+    </header>
+    <div class="menu-container">
+      <div class="menu" class="mouseOver">
+        <h1 style="color: white">Pong</h1>
+        <p style="color: grey; text-decoration: underline;">Difficulty:</p>
+        <p style="color: #33cc33" onclick="startGame('easy')">Easy</p>
+        <p style="color: yellow"  onclick="startGame('normal')">Normal</p>
+        <p style="color: orange"  onclick="startGame('hard')">Hard</p>
+        <p style="color: red"     onclick="startGame('extreme')">Extreme</p>
+        <br>
+        <p style="color: white;"  onclick="showInstructions()">How to play?</p>
       </div>
-      <br>
-      <div class="instructions instructionsTwo">
-        <h3 style="text-decoration: underline;">Push</h3>
-        <p>Players can press the push button to give the ball a momentary boost.</p>
-        <img src="../assets/push.jpeg" width="150" alt="push-image"/>
+
+      <div class="winner-container">
+        <h2 class="winner-message"></h2>
+        <p style="color: white" onclick="reset()">Main Menu</p>
+      </div>
+
+      <div class="instructions-container">
+        <div class="instructions instructionsOne">
+          <h3 style="text-decoration: underline;">Moves</h3>
+          <p>You can move your player with the keyboard</p>
+          <p>Left player can move their player with W and S keys to move up and down.</p>
+          <p>Right player can move their player with arrow keys to move up and down.</p>
+          <img src="../assets/movement.jpeg" width="150" alt="movement-image" />
+        </div>
+        <br>
+        <div class="instructions instructionsTwo">
+          <h3 style="text-decoration: underline;">Push</h3>
+          <p>Players can press the push button to give the ball a momentary boost.</p>
+          <img src="../assets/push.jpeg" width="150" alt="push-image"/>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="sidebars sidebar-One"></div>
-  <div class="sidebars sidebar-Two"></div>
-  <canvas>
-  </canvas>
-</body>
-
+    <div class="sidebars sidebar-One"></div>
+    <div class="sidebars sidebar-Two"></div>
+    <canvas>
+    </canvas>
+  </body>
 </html>

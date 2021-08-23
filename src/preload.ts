@@ -1,4 +1,4 @@
-import { ipcRenderer, contextBridge } from "electron";
+import { contextBridge } from "electron";
 import { cpus } from "os";
 
 contextBridge.exposeInMainWorld("api", {

@@ -1480,6 +1480,13 @@ electron-rebuild@^2.3.2:
     tar "^6.0.5"
     yargs "^16.0.0"
 
+electron-reload@^2.0.0-alpha.1:
+  version "2.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/electron-reload/-/electron-reload-2.0.0-alpha.1.tgz#6cad98df96695ca1d5462dc9407f7c620028ce99"
+  integrity sha512-hTde7gv0TEqxbxlB3pj2CwoyCQ9sdiQrcP8GkpzhosxyVeYM3mZbMEVKCZK3L0fED7Mz5A9IWmK7zEvi4H3P1g==
+  dependencies:
+    chokidar "^3.5.2"
+
 electron-squirrel-startup@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/electron-squirrel-startup/-/electron-squirrel-startup-1.0.0.tgz#19b4e55933fa0ef8f556784b9c660f772546a0b8"

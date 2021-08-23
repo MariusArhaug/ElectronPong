@@ -1,4 +1,4 @@
-import { WINDOW_HEIGHT, DATA } from "./constants";
+import { WINDOW_HEIGHT, DATA } from "../constants";
 import { Model } from "./Model";
 
 interface IPlayer {

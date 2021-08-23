@@ -1,4 +1,5 @@
 import { app, BrowserWindow, globalShortcut } from "electron";
+import electronReload from "electron-reload";
 import * as path from "path";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -14,6 +15,7 @@ const createWindow = (): void => {
     width: 800,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       preload: `${__dirname}/preload.js`,
     },
   });

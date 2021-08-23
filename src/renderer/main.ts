@@ -5,10 +5,9 @@ import {
   CENTER_X,
   CENTER_Y,
   DATA,
-  Circle,
-  Player,
   DIFFICULTY,
-} from "./types";
+} from "./constants";
+import { Circle, Player } from "./types";
 import { castHTML, randomSpeed } from "./utils";
 
 const canvas = document.getElementsByTagName("canvas")[0];

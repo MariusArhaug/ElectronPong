@@ -1,4 +1,4 @@
-import { ICTX } from "./constants";
+import { ICTX } from "../constants";
 
 export class Model<T> {
   protected props: T;

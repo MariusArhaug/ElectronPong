@@ -5,10 +5,10 @@ import {
   WINDOW_WIDTH,
   CENTER_X,
   CENTER_Y,
-} from "./constants";
+} from "../constants/constants";
 import { rectCircleColliding, randomSpeed } from "../utils";
-import { Model, Player } from ".";
-
+import { Model } from "./Model";
+import { Player } from "./Player";
 interface ICircle {
   ctx: ICTX;
   dx: number;
