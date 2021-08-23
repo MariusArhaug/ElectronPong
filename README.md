@@ -6,8 +6,9 @@ In order to run the application you need to first compile the TS files into JS f
 
 Make sure you have yarn installed
 
+To compile: 
+
 `yarn build`
 
-Then to run the repo do:
-
+To compile and run:
 `yarn start`
