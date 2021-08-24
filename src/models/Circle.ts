@@ -6,10 +6,10 @@ import {
   CENTER_X,
   CENTER_Y,
 } from "../constants/constants";
-import { rectCircleColliding, randomSpeed } from "../utils";
+import { randomSpeed } from "../utils/arrayRandom";
 import { Model } from "./Model";
 import { Player } from "./Player";
-interface ICircle {
+export interface ICircle {
   ctx: ICTX;
   dx: number;
   dy: number;
@@ -74,8 +74,8 @@ export class Circle extends Model<ICircle> {
       this.props.dy = -this.props.dy;
     }
 
-    const detectionOne = rectCircleColliding(this, playerOne);
-    const detectionTwo = rectCircleColliding(this, playerTwo);
+    const detectionOne = this.playerCircleColliding(playerOne);
+    const detectionTwo = this.playerCircleColliding(playerTwo);
 
     if (detectionOne || detectionTwo) {
       if (playerOne.getDX() > 0) {
@@ -110,5 +110,28 @@ export class Circle extends Model<ICircle> {
     this.y = CENTER_Y;
     this.props.dx = randomSpeed(this.getSpeed());
     this.props.dy = randomSpeed(this.getSpeed());
+  }
+
+  private playerCircleColliding(player: Player): boolean {
+    const PLAYER_WIDTH = player.getWidth() / 2;
+    const CIRLCE_RADIUS = this.getRadius();
+    const distX = Math.abs(
+      this.getX() + this.getDX() - player.getX() - PLAYER_WIDTH - player.getDY()
+    );
+    const distY = Math.abs(
+      this.getY() + this.getDY() - player.getY() - PLAYER_WIDTH - player.getDY()
+    );
+
+    if ((distX || distY) > PLAYER_WIDTH + CIRLCE_RADIUS) {
+      return false;
+    }
+
+    if ((distX || distY) <= PLAYER_WIDTH) {
+      return true;
+    }
+
+    const dx = distX - PLAYER_WIDTH;
+    const dy = distY - PLAYER_WIDTH;
+    return dx * dx + dy * dy <= CIRLCE_RADIUS * CIRLCE_RADIUS;
   }
 }

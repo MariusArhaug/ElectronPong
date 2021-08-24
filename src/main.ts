@@ -7,8 +7,9 @@ import {
   DATA,
   DIFFICULTY,
 } from "./constants";
-import { Circle, Player } from "./types";
-import { castHTML, randomSpeed } from "./utils";
+import { Circle, Player } from "./models";
+import { castHTML } from "./utils/castHTML";
+import { randomSpeed } from "./utils/arrayRandom";
 
 const canvas = document.getElementsByTagName("canvas")[0];
 canvas.width = WINDOW_WIDTH;
