@@ -63,9 +63,9 @@ export class Circle extends Model<ICircle> {
   }
 
   public update(playerOne: Player, playerTwo: Player): void {
-    if (this.playerHasScored) {
-      this.center();
-    }
+    //if (this.playerHasScored) {
+    // this.center();
+    //}
 
     if (
       this.y + this.getDY() > WINDOW_HEIGHT - this.getRadius() ||

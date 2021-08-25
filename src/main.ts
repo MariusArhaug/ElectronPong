@@ -18,6 +18,10 @@ const ctx = canvas.getContext("2d");
 
 export function startGame(key: string): void {
   const SETTING = DIFFICULTY.get(key);
+
+  if (!ctx || !SETTING) {
+    return;
+  }
   const SPEED_X = randomSpeed(SETTING.speed);
   const SPEED_Y = randomSpeed(SETTING.speed);
 
@@ -57,7 +61,7 @@ export function startGame(key: string): void {
 let requestId: undefined | number;
 function animate(circle: Circle, playerOne: Player, playerTwo: Player) {
   startAnimation(circle, playerOne, playerTwo);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx!.clearRect(0, 0, canvas.width, canvas.height);
   circle.update(playerOne, playerTwo);
   playerOne.update();
   playerTwo.update();
@@ -80,10 +84,10 @@ function stopAnimation() {
 }
 
 function updateScore(playerOne: Player, playerTwo: Player) {
-  document.getElementById("pOne-Counter").innerHTML = playerOne
+  document.getElementById("pOne-Counter")!.innerHTML = playerOne
     .getPoints()
     .toString();
-  document.getElementById("pTwo-Counter").innerHTML = playerTwo
+  document.getElementById("pTwo-Counter")!.innerHTML = playerTwo
     .getPoints()
     .toString();
 }
@@ -112,9 +116,9 @@ export function reset(): void {
   castHTML(
     document.getElementsByClassName("winner-container")[0]
   ).style.display = "none";
-  document.getElementById("pOne-Counter").innerHTML = "0";
-  document.getElementById("pTwo-Counter").innerHTML = "0";
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById("pOne-Counter")!.innerHTML = "0";
+  document.getElementById("pTwo-Counter")!.innerHTML = "0";
+  ctx!.clearRect(0, 0, canvas.width, canvas.height);
   castHTML(document.getElementsByClassName("sidebars")[0]).style.display =
     "block";
   castHTML(document.getElementsByClassName("sidebars")[1]).style.display =
